@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # Configure Google AI API key
 api_key = os.getenv('GOOGLE_API_KEY')
-genai.configure(api_key=GOOGLE_API_KEY)
+#genai.configure(api_key=GOOGLE_API_KEY)
 generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
 
 
