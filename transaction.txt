@@ -1,0 +1,223 @@
+Sample Transactions with Order Numbers - Fakesoap.com
+
+Order Number: FS20240501-001
+
+Date: 2024-05-01
+Name of Customer: John Smith
+Email Address: fakecustomer1@email.com
+Phone Number: 7000000001
+Product: Lovely Lilly Soap
+Price: GBP 3.99
+Discount: None
+Shipping Address: 123 Fake Street, London, UK
+Status: Shipped
+Order Number: FS20240503-002
+
+Date: 2024-05-03
+Name of Customer: Sarah Johnson
+Email Address: fakecustomer2@email.com
+Phone Number: 7000000002
+Product: Coconut Lime Fusion Soap
+Price: GBP 13.99
+Discount: 10%
+Shipping Address: 456 Mock Avenue, Manchester, UK
+Status: Shipped
+Order Number: FS20240505-003
+
+Date: 2024-05-05
+Name of Customer: David Wilson
+Email Address: fakecustomer3@email.com
+Phone Number: 7000000003
+Product: Herbal Garden Soap
+Price: GBP 14.99
+Discount: None
+Shipping Address: 789 Faux Lane, Birmingham, UK
+Status: Shipped
+Order Number: FS20240508-004
+
+Date: 2024-05-08
+Name of Customer: Emily Brown
+Email Address: fakecustomer4@email.com
+Phone Number: 7000000004
+Product: Mandarin Sunrise Soap
+Price: GBP 22.99
+Discount: None
+Shipping Address: 1010 Imaginary Road, Leeds, UK
+Status: Shipped
+Order Number: FS20240510-005
+
+Date: 2024-05-10
+Name of Customer: Michael Thompson
+Email Address: fakecustomer5@email.com
+Phone Number: 7000000005
+Product: Exotic Coconut Soap
+Price: GBP 16.99
+Discount: None
+Shipping Address: 222 Dream Street, Glasgow, UK
+Status: Shipped
+Order Number: FS20240512-006
+
+Date: 2024-05-12
+Name of Customer: Lisa Roberts
+Email Address: fakecustomer6@email.com
+Phone Number: 7000000006
+Product: Raspberry Delight Soap
+Price: GBP 23.99
+Discount: 15%
+Shipping Address: 333 Fantasy Lane, Liverpool, UK
+Status: Shipped
+Order Number: FS20240515-007
+
+Date: 2024-05-15
+Name of Customer: James White
+Email Address: fakecustomer7@email.com
+Phone Number: 7000000007
+Product: Almond Lavender Dream Soap
+Price: GBP 21.99
+Discount: None
+Shipping Address: 444 Fiction Road, Bristol, UK
+Status: Shipped
+Order Number: FS20240517-008
+
+Date: 2024-05-17
+Name of Customer: Olivia Clark
+Email Address: fakecustomer8@email.com
+Phone Number: 7000000008
+Product: Sandalwood Harmony Soap
+Price: GBP 19.99
+Discount: None
+Shipping Address: 555 Make-Believe Avenue, Edinburgh, UK
+Status: Shipped
+Order Number: FS20240520-009
+
+Date: 2024-05-20
+Name of Customer: William Davis
+Email Address: fakecustomer9@email.com
+Phone Number: 7000000009
+Product: Tea Rose Romance Soap
+Price: GBP 18.99
+Discount: 10%
+Shipping Address: 666 Illusion Street, Cardiff, UK
+Status: Shipped
+Order Number: FS20240522-010
+
+Date: 2024-05-22
+Name of Customer: Emma Harris
+Email Address: fakecustomer10@email.com
+Phone Number: 7000000010
+Product: Green Tea Elixir Soap
+Price: GBP 17.99
+Discount: None
+Shipping Address: 777 Enchanted Road, Belfast, UK
+Status: Shipped
+
+Order Number: FS20240901-041
+
+Date: 2024-09-01
+Name of Customer: Lily Parker
+Email Address: fakecustomer41@email.com
+Phone Number: 7000000041
+Product: Coconut Lime Fusion Soap
+Price: GBP 13.99
+Discount: 10%
+Shipping Address: 888 Wonderland Lane, Manchester, UK
+Status: Yet-to-be-shipped
+Order Number: FS20240905-042
+
+Date: 2024-09-05
+Name of Customer: Jacob Turner
+Email Address: fakecustomer42@email.com
+Phone Number: 7000000042
+Product: Lavender Chamomile Serenity Soap
+Price: GBP 15.99
+Discount: None
+Shipping Address: 999 Enchantment Lane, Birmingham, UK
+Status: Returned
+Order Number: FS20240908-043
+
+Date: 2024-09-08
+Name of Customer: Mia Evans
+Email Address: fakecustomer43@email.com
+Phone Number: 7000000043
+Product: Honey Oat Soothe Soap
+Price: GBP 17.99
+Discount: None
+Shipping Address: 111 Dream Avenue, London, UK
+Status: Delivered
+Order Number: FS20240912-044
+
+Date: 2024-09-12
+Name of Customer: Oliver Mitchell
+Email Address: fakecustomer44@email.com
+Phone Number: 7000000044
+Product: Bergamot Citrus Burst Soap
+Price: GBP 12.99
+Discount: None
+Shipping Address: 222 Magic Road, Manchester, UK
+Status: Yet-to-be-shipped
+Order Number: FS20240915-045
+
+Date: 2024-09-15
+Name of Customer: Grace Harris
+Email Address: fakecustomer45@email.com
+Phone Number: 7000000045
+Product: Patchouli Sandalwood Harmony Soap
+Price: GBP 17.99
+Discount: None
+Shipping Address: 333 Enchanted Lane, Birmingham, UK
+Status: Returned
+Order Number: FS20240918-046
+
+Date: 2024-09-18
+Name of Customer: Ethan Wilson
+Email Address: fakecustomer46@email.com
+Phone Number: 7000000046
+Product: Citrus Zest Revive Soap
+Price: GBP 14.99
+Discount: None
+Shipping Address: 444 Dream Street, London, UK
+Status: Delivered
+Order Number: FS20240922-047
+
+Date: 2024-09-22
+Name of Customer: Isabelle Turner
+Email Address: fakecustomer47@email.com
+Phone Number: 7000000047
+Product: Mandarin Sunrise Soap
+Price: GBP 22.99
+Discount: None
+Shipping Address: 555 Fantasy Road, Manchester, UK
+Status: Pending Refund - Dispute
+Order Number: FS20240925-048
+
+Date: 2024-09-25
+Name of Customer: Lucas Clark
+Email Address: fakecustomer48@email.com
+Phone Number: 7000000048
+Product: Lemongrass Sage Refresh Soap
+Price: GBP 14.99
+Discount: None
+Shipping Address: 666 Dream Avenue, Birmingham, UK
+Status: Delivered
+Order Number: FS20240928-049
+
+Date: 2024-09-28
+Name of Customer: Mia Harris
+Email Address: fakecustomer49@email.com
+Phone Number: 7000000049
+Product: Lavender Dreams Soap
+Price: GBP 12.99
+Discount: None
+Shipping Address: 777 Faux Lane, London, UK
+Status: Delivered
+Order Number: FS20241001-050
+
+Date: 2024-10-01
+Name of Customer: Jack Adams
+Email Address: fakecustomer50@email.com
+Phone Number: 7000000050
+Product: Green Tea Elixir Soap
+Price: GBP 17.99
+Discount: None
+Shipping Address: 888 Wonderland Lane, Manchester, UK
+Status: Yet-to-be-shipped
