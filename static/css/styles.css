@@ -158,7 +158,7 @@ nav a {
 /* Hero section styles */
 /* Hero section styles */
 .hero {
-    background-image: url("hero.jpg"); /* Ensure correct path */
+    background-image: url("static/css/Hero.jpg"); /* Ensure correct path */
     background-size: cover;
     background-position: center;
     height: 300px; /* Adjust height as needed */
