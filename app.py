@@ -22,9 +22,9 @@ def read_system_instructions():
 # Initialize the generative model with system instructions
 generation_config = {
     "temperature": 1,
-    "top_p": 0.95,
+    "top_p": 05,
     "top_k": 64,
-    "max_output_tokens": 8192,
+    "max_output_tokens": 4000,
 }
 
 safety_settings = [
@@ -33,6 +33,10 @@ safety_settings = [
     {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
     {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
 ]
+
+def read_system_instructions():
+    with open('system_instructions.txt', 'r', encoding='utf-8') as file:
+        return file.read()
 
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash-latest",
@@ -59,13 +63,11 @@ def contact():
     # Render the 'contact.html' template and return it as a response
     return render_template('contact.html')
 
-def read_system_instructions():
-    with open('system_instructions.txt', 'r', encoding='utf-8') as file:
-        return file.read()
+system_instructions = read_system_instructions()
 
 # Define a function to generate response based on user input and system instructions
 def generate_response(user_input):
-    system_instructions = read_system_instructions()
+    
     payload = {
         "contents": [
             {
