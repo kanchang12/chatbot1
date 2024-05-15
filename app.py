@@ -33,8 +33,7 @@ model = genai.GenerativeModel(
     model_name="gemini-1.5-flash-latest",
     generation_config=generation_config,
     safety_settings=safety_settings,
-    system_instruction=read_system_instructions(),
-    api_key=api_key
+    system_instruction=read_system_instructions()
 )
 
 # Define a route for the root URL
