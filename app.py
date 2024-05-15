@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 import os
-from google.generativeai import ClientManager
+#from google.generativeai import ClientManager
 
 # Create a Flask application instance
 app = Flask(__name__)
