@@ -34,7 +34,7 @@ def initialize_model():
         try:
             generation_config = {
                 "temperature": 1,
-                "top_p": 0.95,
+                "top_p": 0.5,
                 "top_k": 64,
                 "max_output_tokens": 8192,
             }
