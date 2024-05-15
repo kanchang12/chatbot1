@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Configure Google AI API key
 api_key = os.getenv("API_KEY")
-client_manager = ClientManager(api_key=api_key)
+#client_manager = ClientManager(api_key=api_key)
 # Read system instructions from external text file
 def read_system_instructions():
     with open('system_instructions.txt', 'r', encoding='utf-8') as file:
