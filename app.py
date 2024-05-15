@@ -1,16 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 import os
-#from google.generativeai import ClientManager
+import requests
+import google.generativeai as genai
 
 # Create a Flask application instance
 app = Flask(__name__)
 
 # Configure Google AI API key
-# Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
-GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY')
+api_key = = os.getenv("API_KEY")
+generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
 
-genai.configure(api_key=GOOGLE_API_KEY)
+
 # Read system instructions from external text file
 def read_system_instructions():
     with open('system_instructions.txt', 'r', encoding='utf-8') as file:
@@ -38,6 +39,7 @@ model = genai.GenerativeModel(
     system_instruction=read_system_instructions()
 )
 
+
 # Define a route for the root URL
 @app.route('/')
 def index():
@@ -55,16 +57,46 @@ def contact():
     # Render the 'contact.html' template and return it as a response
     return render_template('contact.html')
 
-# Define a route for handling chatbot interactions
+def read_system_instructions():
+    with open('system_instructions.txt', 'r', encoding='utf-8') as file:
+        return file.read()
+
+# Define a function to generate response based on user input and system instructions
+def generate_response(user_input):
+    system_instructions = read_system_instructions()
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": system_instructions + f"\n\nUser Input: {user_input}"
+                    }
+                ]
+            }
+        ]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    response = requests.post(generate_content_url, json=payload, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return f"Error: {response.status_code}"
+
+
+
 @app.route('/chat', methods=['POST'])
 def chat():
     user_input = request.json.get('user_input', '')
+    
+    # Call your model to generate a response based on user input and system instructions
+    response = generate_response(user_input)
 
-    # Generate response using the chatbot model
-    response = model.generate_content([user_input])
-    chat_response = response.text
+    # Extract the chat response text from the response object
+    chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
 
-    return jsonify({'chat_response': chat_response})
+    return jsonify({'chat_response': chat_response_text})
 
 # Run the Flask application
 if __name__ == "__main__":
