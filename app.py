@@ -4,11 +4,13 @@ import os
 import requests
 import google.generativeai as genai
 
+
 # Create a Flask application instance
 app = Flask(__name__)
 
 # Configure Google AI API key
-api_key = os.getenv("API_KEY")
+api_key = os.getenv('GOOGLE_API_KEY')
+genai.configure(api_key=GOOGLE_API_KEY)
 generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
 
 
@@ -97,6 +99,7 @@ def chat():
     chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
 
     return jsonify({'chat_response': chat_response_text})
+
 
 # Run the Flask application
 if __name__ == "__main__":
