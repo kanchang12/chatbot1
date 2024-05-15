@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Configure Google AI API key
 # Or use `os.getenv('GOOGLE_API_KEY')` to fetch an environment variable.
-GOOGLE_API_KEY=userdata.get('GOOGLE_API_KEY')
+GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY')
 
 genai.configure(api_key=GOOGLE_API_KEY)
 # Read system instructions from external text file
