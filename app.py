@@ -22,7 +22,7 @@ def read_system_instructions():
 # Initialize the generative model with system instructions
 generation_config = {
     "temperature": 1,
-    "top_p": 05,
+    "top_p": .05,
     "top_k": 64,
     "max_output_tokens": 4000,
 }
