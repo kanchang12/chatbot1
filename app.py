@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Configure Google AI API key
 #api_key = os.getenv("API_KEY")
-api_key = 'AIzaSyBJVnIE_qpHui-FchgOSJC28aBrpfA0Lcg'
+api_key = '7c8b1dad2c564f93f678b03428fe8f0ea784820f'
 #genai.configure(api_key=os.environ["API_KEY"])
 #print(api_key)
 #client_manager = ClientManager(api_key=api_key)
