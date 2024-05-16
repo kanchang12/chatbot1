@@ -1,16 +1,12 @@
 from flask import Flask, render_template, request, jsonify
-import google.generativeai as genai
-import os
 import requests
 import google.generativeai as genai
-
 
 # Create a Flask application instance
 app = Flask(__name__)
 
 # Configure Google AI API key
-api_key = os.getenv('GOOGLE_API_KEY')
-#genai.configure(api_key=GOOGLE_API_KEY)
+api_key = 'AIzaSyBJVnIE_qpHui-FchgOSJC28aBrpfA0Lcg'
 generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
 
 
@@ -34,7 +30,7 @@ def initialize_model():
         try:
             generation_config = {
                 "temperature": 1,
-                "top_p": 0.5,
+                "top_p": 0.95,
                 "top_k": 64,
                 "max_output_tokens": 8192,
             }
@@ -68,6 +64,7 @@ def products():
 def contact():
     return render_template('contact.html')
 initialize_model()  # Ensure model is initialized if not already
+
 def generate_response(user_input):
     
     if model:
@@ -103,10 +100,6 @@ def chat():
     chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
     return jsonify({'chat_response': chat_response_text})
 
-
 # Run the Flask application
-if __name__ == "__main__":
-    # Use Gunicorn as the production WSGI server
-    host = '0.0.0.0'
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host=host, port=port)
+if __name__ == '__main__':
+    app.run(debug=True)
