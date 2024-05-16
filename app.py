@@ -67,9 +67,9 @@ def products():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-
+initialize_model()  # Ensure model is initialized if not already
 def generate_response(user_input):
-    initialize_model()  # Ensure model is initialized if not already
+    
     if model:
         payload = {
             "contents": [
