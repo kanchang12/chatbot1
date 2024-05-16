@@ -1,21 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 import os
-import requests
-import google.generativeai as genai
+import asyncio
 
-
-# Create a Flask application instance
 app = Flask(__name__)
 
-# Configure Google AI API key
+# Configure Google API key
 api_key = os.getenv('GOOGLE_API_KEY')
-#genai.configure(api_key=GOOGLE_API_KEY)
-generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
+genai.configure(api_key=api_key)
 
-
-system_instructions = None
+# Initialize global variables
 model = None
+system_instructions = None
 
 def read_system_instructions():
     global system_instructions
@@ -28,10 +24,10 @@ def read_system_instructions():
             system_instructions = ""
     return system_instructions
 
-def initialize_model():
+async def initialize_model_async():
     global model
-    if model is None:
-        try:
+    try:
+        if model is None:
             generation_config = {
                 "temperature": 1,
                 "top_p": 0.5,
@@ -52,9 +48,9 @@ def initialize_model():
                     safety_settings=safety_settings,
                     system_instruction=system_instr
                 )
-        except Exception as e:
-            # Handle model initialization error
-            model = None
+    except Exception as e:
+        # Handle model initialization error
+        model = None
 
 @app.route('/')
 def index():
@@ -67,47 +63,35 @@ def products():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-initialize_model()  # Ensure model is initialized if not already
-def generate_response(user_input):
-    
-    if model:
-        payload = {
-            "contents": [
-                {
-                    "parts": [
-                        {
-                            "text": system_instructions + f"\n\nUser Input: {user_input}"
-                        }
-                    ]
-                }
-            ]
-        }
-        headers = {
-            "Content-Type": "application/json"
-        }
-        try:
-            response = requests.post(generate_content_url, json=payload, headers=headers)
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return f"Error: {response.status_code}"
-        except Exception as e:
-            return f"Error: {str(e)}"
-    else:
-        return "Error: Model not initialized"
 
 @app.route('/chat', methods=['POST'])
-def chat():
-    user_input = request.json.get('user_input', '')
-    response = generate_response(user_input)
-    chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-    return jsonify({'chat_response': chat_response_text})
+async def chat():
+    try:
+        user_input = request.json.get('user_input', '')
+        if not user_input:
+            return jsonify({'error': 'Invalid user input'}), 400
+        
+        # Initialize model asynchronously if not already initialized
+        await initialize_model_async()
 
+        # Send user input to the model for response generation
+        async with model.session() as session:
+            response = await session.query(user_input)
 
-# Run the Flask application
+        # Extract response text
+        chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+
+        return jsonify({'chat_response': chat_response_text}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == "__main__":
+    # Run the Flask application using an async event loop
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.gather(initialize_model_async()))
+    
     # Use Gunicorn as the production WSGI server
     host = '0.0.0.0'
     port = int(os.environ.get('PORT', 5000))
     app.run(host=host, port=port)
-
