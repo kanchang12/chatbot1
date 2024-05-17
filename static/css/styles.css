@@ -96,7 +96,8 @@ nav a {
     position: fixed;
     bottom: 80px;
     right: 20px;
-    width: 300px;
+    width: 360px;
+    height: calc(100% - 100px);
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -125,8 +126,9 @@ nav a {
     cursor: pointer;
 }
 
-.chat-body {
-    height: 200px;
+/* Ensure chat body adjusts within the increased height */
+#chatBody {
+    height: calc(100% - 60px);  /* Adjust height to fit within the widget */
     overflow-y: auto;
     padding: 10px;
 }
