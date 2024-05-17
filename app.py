@@ -1,60 +1,52 @@
 from flask import Flask, render_template, request, jsonify
-import requests
-import google.generativeai as genai
+import openai
+import json
 
-# Create a Flask application instance
 app = Flask(__name__)
 
-# Configure Google AI API key
-api_key = 'AIzaSyBJVnIE_qpHui-FchgOSJC28aBrpfA0Lcg'
-generate_content_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + api_key
 
+api_key = os.getenv('GOOGLE_API_KEY')
+openai.api_key = api_key
 
-system_instructions = None
-model = None
-
-def read_system_instructions():
-    global system_instructions
-    if system_instructions is None:
-        try:
-            with open('system_instructions.txt', 'r', encoding='utf-8') as file:
-                system_instructions = file.read()
-        except FileNotFoundError:
-            # Handle file not found error
-            system_instructions = ""
-    return system_instructions
-
-def initialize_model():
-    global model
-    if model is None:
-        try:
-            generation_config = {
-                "temperature": 1,
-                "top_p": 0.95,
-                "top_k": 64,
-                "max_output_tokens": 8192,
-            }
-            safety_settings = [
-                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-            ]
-            system_instr = read_system_instructions()
-            if system_instr:
-                model = genai.GenerativeModel(
-                    model_name="gemini-1.5-flash-latest",
-                    generation_config=generation_config,
-                    safety_settings=safety_settings,
-                    system_instruction=system_instr
-                )
-        except Exception as e:
-            # Handle model initialization error
-            model = None
+# System instructions for chat
+system_instructions = (
+    "You are the customer interface of Fakesoap.com.\n"
+    "You will be polite and provide accurate information to customers.\n"
+    "If a customer says abusive things, you can close the chat.\n"
+    "If someone asks irrelevant things, bring the topic back to our soap business.\n"
+    "Be formal and professional.\n\n"
+    "For your chat, you will load the entire data below first and give an answer.\n\n\n"
+)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('user_input', '')
+
+    if not user_input:
+        return jsonify({'chat_response': 'Error: No user input provided'})
+
+    try:
+        # Create chat completion request to OpenAI API
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo-16k",
+            messages=[
+                {"role": "system", "content": system_instructions},
+                {"role": "user", "content": user_input}
+            ],
+            max_tokens=150  # Adjust max_tokens as needed
+        )
+
+        # Extract chat response from OpenAI API response
+        chat_response = response['choices'][0]['message']['content']
+
+        return jsonify({'chat_response': chat_response})
+
+    except Exception as e:
+        return jsonify({'chat_response': f"Error: {str(e)}"})
 
 @app.route('/products')
 def products():
@@ -63,43 +55,9 @@ def products():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-initialize_model()  # Ensure model is initialized if not already
 
-def generate_response(user_input):
-    
-    if model:
-        payload = {
-            "contents": [
-                {
-                    "parts": [
-                        {
-                            "text": system_instructions + f"\n\nUser Input: {user_input}"
-                        }
-                    ]
-                }
-            ]
-        }
-        headers = {
-            "Content-Type": "application/json"
-        }
-        try:
-            response = requests.post(generate_content_url, json=payload, headers=headers)
-            if response.status_code == 200:
-                return response.json()
-            else:
-                return f"Error: {response.status_code}"
-        except Exception as e:
-            return f"Error: {str(e)}"
-    else:
-        return "Error: Model not initialized"
-
-@app.route('/chat', methods=['POST'])
-def chat():
-    user_input = request.json.get('user_input', '')
-    response = generate_response(user_input)
-    chat_response_text = response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-    return jsonify({'chat_response': chat_response_text})
-
-# Run the Flask application
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    # Use Gunicorn as the production WSGI server
+    host = '0.0.0.0'
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host=host, port=port)
